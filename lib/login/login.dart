@@ -13,6 +13,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController phcontroller = TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
   bool isLoggedIn = false;
 
   @override
@@ -25,7 +26,6 @@ class _LoginState extends State<Login> {
 
   void getLoginData() async {
     preferences = await SharedPreferences.getInstance();
-    preferences!.setString('phoneNumber', phcontroller.text);
   }
 
   @override
@@ -51,10 +51,10 @@ class _LoginState extends State<Login> {
         children: [
           const Center(
             child: Padding(
-              padding: EdgeInsets.only(top: 80.0),
+              padding: EdgeInsets.only(top: 60.0),
               child: Text(
-                'Enter your mobile number',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                'Enter your name & mobile number',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -66,7 +66,20 @@ class _LoginState extends State<Login> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: TextFormField(
+              controller: namecontroller,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: 'Name',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: TextFormField(
               inputFormatters: [
                 LengthLimitingTextInputFormatter(10),
@@ -74,6 +87,7 @@ class _LoginState extends State<Login> {
               controller: phcontroller,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
+                labelText: 'Mobile Number',
                 prefix: const Text('+91|'),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -90,11 +104,13 @@ class _LoginState extends State<Login> {
                   ),
                   backgroundColor: Colors.amber[900]),
               onPressed: () {
-                if (phcontroller.text.length == 10) {
+                if (phcontroller.text == '7095799359' &&
+                    namecontroller.text.length > 3) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Verify(
+                        name: namecontroller.text,
                         phoneNumber: phcontroller.text,
                       ),
                     ),
@@ -102,7 +118,7 @@ class _LoginState extends State<Login> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Invalid Number. Please try again.'),
+                      content: Text('All fields are mandatory!!!'),
                       duration: Duration(seconds: 2),
                     ),
                   );

@@ -75,30 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          child: TextFormField(
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search_outlined),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              // suffixIcon: Icon(
-              //   Icons.menu_outlined,
-              //   color: Colors.amber[900],
-              // ),
-            ),
-          ),
-        ),
         const Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
           child: Text(
             "Categories",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 10),
           child: SizedBox(
             height: 55,
             child: ListView.builder(
@@ -116,20 +101,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      width: 120,
+                      width: 108,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         color: selected == index
-                            ? (Colors.amber[900])
-                            : Colors.grey[300],
+                            ? Colors.amber[900]
+                            : Colors.white,
                       ),
                       child: Center(
                         child: Text(
                           categories[index].name,
                           style: TextStyle(
-                              color: selected == index
-                                  ? Colors.white
-                                  : Colors.black),
+                            color:
+                                selected == index ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -145,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(20),
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 1,
                     mainAxisSpacing: 20,
                     crossAxisSpacing: 20,
                     mainAxisExtent: 260),
@@ -194,24 +180,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Image.asset(
                             categories[selected!].items[index].imgpath,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fitHeight,
                             height: 120,
                             width: double.infinity,
                           ),
-                          Center(
-                            child: Text(
-                              categories[selected!].items[index].name,
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Text(
-                              "\$${categories[selected!].items[index].price}",
-                              style: const TextStyle(
-                                color: Colors.black,
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  categories[selected!].items[index].name,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
                           ),
                           IconButton(

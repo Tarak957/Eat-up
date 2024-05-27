@@ -12,6 +12,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String storedPhoneNumber = "";
+  String profileName = "";
 
   @override
   void initState() {
@@ -23,7 +24,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void getUserData() async {
     preferences = await SharedPreferences.getInstance();
-    storedPhoneNumber = preferences!.getString('phone_number') ?? 'N/A';
+    setState(() {
+      profileName = preferences!.getString('name') ?? 'N/A';
+      storedPhoneNumber = preferences!.getString('phone_number') ?? 'N/A';
+    });
   }
 
   @override
@@ -34,8 +38,17 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
+              profileName,
+              style: const TextStyle(fontSize: 25),
+            ),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
               storedPhoneNumber,
-              style: TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25),
             ),
           ),
         ),

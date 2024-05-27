@@ -18,9 +18,9 @@ class Track extends StatelessWidget {
               ),
             );
           },
-          child: Icon(Icons.arrow_back),
+          child: const Icon(Icons.arrow_back),
         ),
-        title: Text(
+        title: const Text(
           "Order Track",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -34,7 +34,7 @@ class Track extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.all(25),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

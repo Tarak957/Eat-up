@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/splash_screen/Splashscreen.dart';
+import 'package:food_app/splash_screen/splashscreen.dart';
 import 'package:food_app/providers/cart_provider.dart';
 import 'package:food_app/providers/fav_provider.dart';
 import 'package:provider/provider.dart';

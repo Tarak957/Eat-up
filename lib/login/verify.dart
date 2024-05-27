@@ -1,16 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:food_app/bottom_navigation%20_bar/main_screen.dart';
 import 'package:food_app/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Verify extends StatefulWidget {
+  final String name;
   final String phoneNumber;
   const Verify({
     super.key,
+    required this.name,
     required this.phoneNumber,
   });
 
@@ -73,18 +74,6 @@ class _VerifyState extends State<Verify> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            // child: TextFormField(
-            //   inputFormatters: [
-            //     LengthLimitingTextInputFormatter(4),
-            //   ],
-            //   controller: otpcontroller,
-            //   keyboardType: TextInputType.phone,
-            //   decoration: InputDecoration(
-            //     border: OutlineInputBorder(
-            //       borderRadius: BorderRadius.circular(10),
-            //     ),
-            //   ),
-            // ),
             child: OtpTextField(
               numberOfFields: 4,
               showFieldAsBox: true,
@@ -104,9 +93,10 @@ class _VerifyState extends State<Verify> {
                   ),
                   backgroundColor: Colors.amber[900]),
               onPressed: () async {
-                if (otpcontroller.text.length == 4) {
+                if (otpcontroller.text == '0000') {
                   preferences!.setBool('isLoggedIn', true);
                   preferences!.setString("phone_number", widget.phoneNumber);
+                  preferences!.setString('name', widget.name);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

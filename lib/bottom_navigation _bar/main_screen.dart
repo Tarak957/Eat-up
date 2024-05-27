@@ -1,9 +1,8 @@
-
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:food_app/bottom_navigation%20_bar/cart/cart.dart';
 import 'package:food_app/bottom_navigation%20_bar/fav.dart';
 import 'package:food_app/bottom_navigation%20_bar/profile.dart';
@@ -44,14 +43,14 @@ class _HomeState extends State<Home> {
       builder: (context) => CupertinoActionSheet(
         actions: [
           CupertinoActionSheetAction(
-            child: Text('Gallery'),
+            child: const Text('Gallery'),
             onPressed: () {
               Navigator.of(context).pop();
               getImage(ImageSource.gallery);
             },
           ),
           CupertinoActionSheetAction(
-            child: Text('Camera'),
+            child: const Text('Camera'),
             onPressed: () {
               Navigator.of(context).pop();
               getImage(ImageSource.camera);
@@ -68,7 +67,9 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: Colors.orange[100],
       appBar: AppBar(
+        backgroundColor: Colors.orange[100],
         leading: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: IconButton(
@@ -80,22 +81,10 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.grid_view_rounded, color: Colors.amber[900]),
           ),
         ),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: GestureDetector(
-              onTap: () {},
-              child: const Padding(
-                padding: EdgeInsets.only(right: 25),
-                child: Icon(Icons.person),
-              ),
-            ),
-          ),
-        ],
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: [
+        children: const [
           HomeScreen(),
           Favorites(),
           Cart(),
@@ -114,7 +103,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(40),
                 child: Container(
                   clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: IconButton(
                     onPressed: showOptions,
@@ -123,42 +112,40 @@ class _HomeState extends State<Home> {
                             _image!,
                             fit: BoxFit.cover,
                           )
-                        : Icon(Icons.image),
+                        : const Icon(Icons.image),
                   ),
                 ),
               ),
             ),
-            DrawerList(title: 'Your Orders'),
-            DrawerList(title: 'Favorite Orders'),
-            DrawerList(title: 'Addresss'),
-            DrawerList(title: 'Payments'),
-            DrawerList(title: 'About Us'),
-            DrawerList(title: 'Support'),
-            DrawerList(title: 'Feedback'),
-            DrawerList(title: 'Rate Us'),
-            DrawerList(
-              title: 'Log Out',
-              onTap: () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.remove('phoneNumber');
-                prefs.remove('otp');
-                prefs.setBool('isLoggedIn', false);
+            Padding(
+              padding: const EdgeInsets.only(top: 500),
+              child: DrawerList(
+                title: 'Log Out',
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('phoneNumber');
+                  prefs.remove('otp');
+                  prefs.setBool('isLoggedIn', false);
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Logged Out Successfully'),
-                    duration: Duration(seconds: 1),
-                  ),
-                );
+                  // ignore: use_build_context_synchronously
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Logged Out Successfully'),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
 
-                // Navigate to login screen
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              },
+                  // Navigate to login screen
+                  Navigator.pushReplacement(
+                    // ignore: use_build_context_synchronously
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -206,7 +193,7 @@ class _HomeState extends State<Home> {
 }
 
 class DrawerList extends StatelessWidget {
-  DrawerList({super.key, required this.title, this.onTap});
+  const DrawerList({super.key, required this.title, this.onTap});
 
   final String title;
   final VoidCallback? onTap;
@@ -214,9 +201,11 @@ class DrawerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
+      title: Center(
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
       onTap: onTap,
     );

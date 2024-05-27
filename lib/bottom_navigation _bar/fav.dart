@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class Favorites extends StatefulWidget {
-  Favorites({super.key});
+  const Favorites({super.key});
 
   @override
   State<Favorites> createState() => _FavoritesState();
